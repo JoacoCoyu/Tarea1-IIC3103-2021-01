@@ -8,7 +8,7 @@ class NavBar extends Component {
         return ( 
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                        <span className="navbar-brand mb-0 h1">Navbar
+                        <span className="navbar-brand mb-0 h1">New Series App
                         </span>
                     
                     <div class="collapse navbar-collapse" id="navbarNav">

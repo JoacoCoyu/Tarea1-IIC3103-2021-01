@@ -4,7 +4,6 @@ import '../../style/index.css';
 import { BrowserRouter as Router, Switch, 
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 import EpisodiosBB from './episodiosBB';
-import ToggleBox from './toggleBox';
 
 
 const countTemp = (episodesArray) => {
@@ -35,8 +34,7 @@ class BreakingBad extends Component {
     episodesBB: [],
     nTempBB: 0,
     tempBB: [],
-    episodeSelectedId: 0,
-    episodeSelected: false
+    episodeSelectedId: 0
     
   }
 
@@ -66,13 +64,10 @@ class BreakingBad extends Component {
   handleEpisodeId = (e) => {
     const episodeSelectedId = e.target.id
     this.setState({ episodeSelectedId })
-    this.setState({
-      episodeSelected: !this.state.episodeSelected
-    })
+    //console.log(this.state.episodeSelectedId)
   }
 
   render() {
-
     return (
         <div class="row">
         { this.state.tempBB.map(temp => 
