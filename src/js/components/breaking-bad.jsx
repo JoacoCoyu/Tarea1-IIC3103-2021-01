@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import '../../style/index.css';
+import { BrowserRouter as Router, Switch, 
+  Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
+import EpisodiosBB from './episodiosBB';
+import ToggleBox from './toggleBox';
 
-
-
-
-
-// hacer los arrays para cada serie: TempBB: ["temporada 1", "temporada 2"]
-// temporada + i
 
 const countTemp = (episodesArray) => {
   var maxTemp = 0;
@@ -20,6 +18,7 @@ const countTemp = (episodesArray) => {
   return maxTemp;
 }
 
+
 const assignTemp = (nTemps) => {
   var t_index;
   var tempArray = [];
@@ -30,11 +29,15 @@ const assignTemp = (nTemps) => {
   return tempArray;
 }
 
+
 class BreakingBad extends Component {
   state = {
     episodesBB: [],
     nTempBB: 0,
-    tempBB: []
+    tempBB: [],
+    episodeSelectedId: 0,
+    episodeSelected: false
+    
   }
 
   async componentDidMount() {
@@ -47,6 +50,9 @@ class BreakingBad extends Component {
     this.getTemps()
   }
 
+  componentWillUnmount() {
+    console.log('counter-unmount');
+  } 
 
   getTemps = () => {
     // Asignar los nuevos valores y aplicar funciones
@@ -55,38 +61,52 @@ class BreakingBad extends Component {
 
     const tempBB = assignTemp(this.state.nTempBB)
     this.setState({ tempBB })
-    //console.log(this.state.tempBB)
   }
 
+  handleEpisodeId = (e) => {
+    const episodeSelectedId = e.target.id
+    this.setState({ episodeSelectedId })
+    this.setState({
+      episodeSelected: !this.state.episodeSelected
+    })
+  }
 
   render() {
-    console.log('next happens after rendering')
+
     return (
         <div class="row">
         { this.state.tempBB.map(temp => 
         <div class="card w-25">
-            <div class="card-body">
-              <h4 class="card-title">Temporada {temp}</h4>
-              <div class="dropdown">
-                <a type="button" class="btn btn-info ">
-                  Check Out Episodes
-                </a>
-                <div class="dropdown-content">
-                
-                  <ul>
-                    { this.state.episodesBB.filter(episode => episode.season == temp).map(filEpi => (
-                      <li>
-                        {filEpi.title}
-                      </li>
-                    ))}
-                    
-                  </ul>
-
-                </div>
+          <div class="card-body">
+            <h4 class="card-title">Season {temp}</h4>
+            <div class="dropdown">
+              <a type="button" class="btn btn-info ">
+                Check Out Episodes
+              </a>
+              <div class="dropdown-content">
+              
+                <ul>
+                  { this.state.episodesBB.filter(episode => episode.season == temp).map(filEpi => (
+                    <li >
+                      <Link id={filEpi.episode_id} className="nav-link" to={`/breaking-bad/episodes/${filEpi.episode_id}`} onClick={this.handleEpisodeId}>
+                        {filEpi.title} #{filEpi.episode}
+                      </Link>
+                    </li>
+                  ))}
+                  
+                </ul>
               </div>
             </div>
           </div>
+        </div>
+        
           )}
+          
+          <Switch>
+            <Route path={`/breaking-bad/episodes/:episodeId`}>
+              <EpisodiosBB dataEpisodeId = {this.state.episodeSelectedId} />
+            </Route>
+          </Switch>
       </div>
       
     )

@@ -57,32 +57,30 @@
   display: block;
 }
 
-.toolgroup,
-.toolgroup li ul {
-  padding: 0px;
-  list-style: none;
-  width: 150px;
-  background: #ccc;
-  border: 1px solid #000;
-}
-.toolgroup li,
-.toolgroup li ul li {
-  width: 100%;
-  position: relative;
-}
-.toolgroup li a,
-.toolgroup li ul li a {
-  padding: 7px 10px;
-  display: block;
-  border-bottom: 1px solid #000;
-  background-color: #f9f9f9;
-}
-.toolgroup li ul {
-  display: none;
+.episodes-container {
   position: absolute;
-  left: 150px;
-  top: 0px;
+  top: 40%;
+  left: 35%;
 }
-.toolgroup li:hover ul {
-  display: block;
+
+.card-body-episodeInfo {
+  overflow: auto;
+}
+
+.card-body:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.card-text {
+  font-size: 20px;
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px;
+}
+
+.text-white bg-secondary mb-3 {
+  max-width: 18rem;
 }
