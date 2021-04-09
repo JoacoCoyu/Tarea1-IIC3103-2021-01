@@ -12,7 +12,6 @@ const countTemp = (episodesArray) => {
     if (parseInt(episode.season) > maxTemp) {
       maxTemp = parseInt(episode.season);
     }
-    //console.log(maxTemp)
   });
   return maxTemp;
 }
@@ -35,7 +34,6 @@ class BreakingBad extends Component {
     nTempBB: 0,
     tempBB: [],
     episodeSelectedId: 0
-    
   }
 
   async componentDidMount() {
@@ -45,26 +43,11 @@ class BreakingBad extends Component {
         this.setState({ episodesBB });
       })
 
-    this.getTemps()
-  }
-
-  componentWillUnmount() {
-    console.log('counter-unmount');
-  } 
-
-  getTemps = () => {
-    // Asignar los nuevos valores y aplicar funciones
     const nTempBB = countTemp(this.state.episodesBB)
     this.setState({ nTempBB })
 
     const tempBB = assignTemp(this.state.nTempBB)
     this.setState({ tempBB })
-  }
-
-  handleEpisodeId = (e) => {
-    const episodeSelectedId = e.target.id
-    this.setState({ episodeSelectedId })
-    //console.log(this.state.episodeSelectedId)
   }
 
   render() {
@@ -83,7 +66,9 @@ class BreakingBad extends Component {
                 <ul>
                   { this.state.episodesBB.filter(episode => episode.season == temp).map(filEpi => (
                     <li >
-                      <Link id={filEpi.episode_id} className="nav-link" to={`/breaking-bad/episodes/${filEpi.episode_id}`} onClick={this.handleEpisodeId}>
+                      <Link id={filEpi.episode_id} className="nav-link" 
+                      to={`/breaking-bad/episodes/${filEpi.episode_id}`}
+                       onClick={(e) => this.setState({ episodeSelectedId: e.target.id }) }>
                         {filEpi.title} #{filEpi.episode}
                       </Link>
                     </li>
@@ -95,8 +80,7 @@ class BreakingBad extends Component {
           </div>
         </div>
         
-          )}
-          
+          )}          
           <Switch>
             <Route path={`/breaking-bad/episodes/:episodeId`}>
               <EpisodiosBB dataEpisodeId = {this.state.episodeSelectedId} />

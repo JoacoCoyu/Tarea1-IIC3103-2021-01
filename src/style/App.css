@@ -131,10 +131,7 @@
   background-color: #ccf8fc;
   padding: 10px 16px;
   border-radius: 4px;
-  top: -30%;
-  left: 190%;
-}
-
-.quote-span {
-  background-color: #ccf8fc;
+  top: 1%;
+  left: 40%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }

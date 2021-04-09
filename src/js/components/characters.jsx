@@ -20,17 +20,19 @@ class Character extends Component {
         quoteSelected: []
      }
 
-    componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps, prevState) {
         
         if (prevState.chrNameSelected != this.state.chrNameSelected) {
-          console.log("chr axios call")
+          // BREAKING BAD
           const Apirequest = "https://tarea-1-breaking-bad.herokuapp.com/api/characters?name="+this.state.chrNameSelected
-          axios.get(Apirequest)
+          await axios.get(Apirequest)
             .then(res => {
               res.data.occupation = addComas(res.data[0].occupation)
               res.data.appearance = addComas(res.data[0].appearance)
+              res.data.better_call_saul_appearance = addComas(res.data[0].better_call_saul_appearance)
               const chrSelected = res.data;
               this.setState({ chrSelected });
+              //console.log(this.state.chrNameSelected)
             })
 
           const Apirequest1 = "https://tarea-1-breaking-bad.herokuapp.com/api/quote?author="+this.state.chrNameSelected
@@ -38,17 +40,20 @@ class Character extends Component {
             .then(res => {
               const quoteSelected = res.data;
               this.setState({ quoteSelected });
-              console.log(quoteSelected)
             })
 
         }
       }
 
-    componentWillReceiveProps(nextProps) {
-        var newName = nextProps.dataChrName.replace(" ", "+");
-        this.setState({ chrNameSelected: newName });
-        console.log(this.state.chrNameSelected)
+    static getDerivedStateFromProps(props, state) {
+      var newName = props.dataChrName.replace(" ", "+");
+      if (props.dataChrName !== state.chrNameSelected) {
+        return {
+          chrNameSelected: newName,
+        };
       }
+      return null;
+    }
 
     render() { 
         return ( 
@@ -69,13 +74,17 @@ class Character extends Component {
                               position="right"
                               closeOnDocumentClick>
                                 <div className="quote-container">
-                                {this.state.quoteSelected.map(quote =>
-                                    <ul>
-                                      <li>{quote.quote}</li>
-                                    </ul>
-                               )}
-                               </div>
+                                  {this.state.quoteSelected.filter(quote =>
+                                    quote.quote != "").map(contQuote => 
+                                      <ul>
+                                        <li>{contQuote.quote}</li>
+                                      </ul>
+
+                                    )}
+                                </div>
                             </Popup>
+
+                            
                           </div>
 
                           <p className="chr-text-p text-white">
@@ -93,7 +102,13 @@ class Character extends Component {
                             <br />
                             <b>Status:</b> {chr.status}
                             <br />
-                            <b>Season's appearance:</b> {chr.appearance.map(season =>
+                            <b>Season's appearance Breaking Bad:</b> {chr.appearance.map(season =>
+                              <div className="chr-season-p">
+                                <a>{season}</a>
+                              </div>
+                              )}
+                              <br />
+                            <b>Season's appearance Better Call Saul:</b> {chr.better_call_saul_appearance.map(season =>
                               <div className="chr-season-p">
                                 <a>{season}</a>
                               </div>
