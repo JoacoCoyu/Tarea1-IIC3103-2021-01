@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Popup from "reactjs-popup";
+
 
 const addComas = (array) => {
   for (var e_index = 0; e_index < array.length; e_index++) {
@@ -14,13 +16,14 @@ const addComas = (array) => {
 class Character extends Component {
     state = { 
         chrNameSelected: 'noName',
-        chrSelected: []
+        chrSelected: [],
+        quoteSelected: []
      }
 
-    componentDidUpdate(prevState) {
+    componentDidUpdate(prevProps, prevState) {
         
         if (prevState.chrNameSelected != this.state.chrNameSelected) {
-          console.log("axios call")
+          console.log("chr axios call")
           const Apirequest = "https://tarea-1-breaking-bad.herokuapp.com/api/characters?name="+this.state.chrNameSelected
           axios.get(Apirequest)
             .then(res => {
@@ -28,6 +31,14 @@ class Character extends Component {
               res.data.appearance = addComas(res.data[0].appearance)
               const chrSelected = res.data;
               this.setState({ chrSelected });
+            })
+
+          const Apirequest1 = "https://tarea-1-breaking-bad.herokuapp.com/api/quote?author="+this.state.chrNameSelected
+          axios.get(Apirequest1)
+            .then(res => {
+              const quoteSelected = res.data;
+              this.setState({ quoteSelected });
+              console.log(quoteSelected)
             })
 
         }
@@ -48,9 +59,25 @@ class Character extends Component {
                         <img src={chr.img} alt="Avatar" className="card-img-top" />
                       </div>
                       <div class="chr-text-container">
-                          <h4 className="text-white">
-                          {chr.name}
-                          </h4>
+                        <div className="chr-season-p">
+                            <h4 className="text-white">
+                            {chr.name}
+                            </h4>
+
+                            <Popup
+                              trigger={<button className="btn btn-warning quote-btn">See Quotes</button>}
+                              position="right"
+                              closeOnDocumentClick>
+                                <div className="quote-container">
+                                {this.state.quoteSelected.map(quote =>
+                                    <ul>
+                                      <li>{quote.quote}</li>
+                                    </ul>
+                               )}
+                               </div>
+                            </Popup>
+                          </div>
+
                           <p className="chr-text-p text-white">
                             <b>Nickname:</b> {chr.nickname}
                             <br />

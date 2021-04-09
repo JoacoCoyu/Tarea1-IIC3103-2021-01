@@ -5,21 +5,21 @@ import Character from './characters';
 
 //
 
-const SimpleTooltip = () => (
+const QuoteTooltip = () => (
   <Popup
     trigger={open => (
-      <button className="button">Trigger - {open ? "Opened" : "Closed"}</button>
+      <button className="quote-btn">See Quotes</button>
     )}
-    position="left center"
+    position="right"
     closeOnDocumentClick
   >
     {/* <span> Popup content </span> */}
     <span>
         <div>
-        <Character dataChrName = "Walter White" />
+        <p>This is a quote</p>
         </div>
     </span>
   </Popup>
 );
 
-export default Warper(SimpleTooltip);
+export default Warper(QuoteTooltip);

@@ -20,7 +20,7 @@ class EpisodiosBB extends Component {
 
       componentDidUpdate(prevProps, prevState) {
         if (prevState.episodeSelectedId != this.state.episodeSelectedId) {
-          console.log("axios call")
+          console.log("episode axios call")
           const Apirequest = "https://tarea-1-breaking-bad.herokuapp.com/api/episodes/"+this.state.episodeSelectedId+"?series=Breaking+Bad"
           axios.get(Apirequest)
             .then(res => {
@@ -60,7 +60,7 @@ class EpisodiosBB extends Component {
                       <br />
                       Season: {episode.season}
                       <br />
-                      Episode: {episode.season}
+                      Episode: {episode.episode}
                       <br />
                       Air Date: {episode.air_date}
                       <br />

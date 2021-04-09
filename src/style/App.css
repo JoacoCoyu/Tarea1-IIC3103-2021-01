@@ -123,3 +123,18 @@
 .chr-text-p {
   font-size: 18px;
 }
+
+/* QUOTE */
+
+.quote-container {
+  display: inline-block;
+  background-color: #ccf8fc;
+  padding: 10px 16px;
+  border-radius: 4px;
+  top: -30%;
+  left: 190%;
+}
+
+.quote-span {
+  background-color: #ccf8fc;
+}
