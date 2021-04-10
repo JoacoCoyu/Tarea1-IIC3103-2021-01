@@ -52,6 +52,9 @@ class NavBar extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/breaking-bad">Breaking Bad</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/better-call-saul">Better Call Saul</Link>
+                            </li>
                         </ul>
 
                         {/* <form class="d-flex">
