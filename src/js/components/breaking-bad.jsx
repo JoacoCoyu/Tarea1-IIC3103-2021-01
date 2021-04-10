@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import '../../style/index.css';
+import '../../style/App.css';
 import { BrowserRouter as Router, Switch, 
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 import EpisodiosBB from './episodiosBB';
+import Dropdown from "react-dropdown";
 
 
 const countTemp = (episodesArray) => {
@@ -21,7 +22,6 @@ const assignTemp = (nTemps) => {
   var t_index;
   var tempArray = [];
   for (t_index = 1; t_index <= nTemps; t_index++) {
-    //s_temp = "Temporada " + String(t_index)
     tempArray.push(t_index)
   }
   return tempArray;
@@ -50,6 +50,7 @@ class BreakingBad extends Component {
     this.setState({ tempBB })
   }
 
+
   render() {
     return (
         <div class="row">
@@ -62,7 +63,6 @@ class BreakingBad extends Component {
                 Check Out Episodes
               </a>
               <div class="dropdown-content">
-              
                 <ul>
                   { this.state.episodesBB.filter(episode => episode.season == temp).map(filEpi => (
                     <li >
@@ -77,6 +77,7 @@ class BreakingBad extends Component {
                 </ul>
               </div>
             </div>
+
           </div>
         </div>
         

@@ -1,0 +1,69 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.auto-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+}
+
+.logo {
+  /* background-image: url("./loc-logo.png"); */
+  height: 1px;
+  width: 2px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.autoContainer {
+  position: absolute;
+  border-width: 0px 1px 1px 1px;
+  border-style: solid;
+  border-color: goldenrod;
+  background-color: whitesmoke;
+  left: 0%;
+  top: 100%;
+  width: 210px;
+  z-index: 1;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 250px;
+  padding-left: 10px;
+}
+
+.option,
+span {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.search-chr {
+  position: absolute;
+  top: 800%;
+  left: 80%;
+  z-index: 2;
+  width: 1300px;
+}

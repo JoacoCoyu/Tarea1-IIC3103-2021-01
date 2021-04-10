@@ -32,7 +32,7 @@ class Character extends Component {
               res.data.better_call_saul_appearance = addComas(res.data[0].better_call_saul_appearance)
               const chrSelected = res.data;
               this.setState({ chrSelected });
-              //console.log(this.state.chrNameSelected)
+              console.log(this.state.chrNameSelected)
             })
 
           const Apirequest1 = "https://tarea-1-breaking-bad.herokuapp.com/api/quote?author="+this.state.chrNameSelected

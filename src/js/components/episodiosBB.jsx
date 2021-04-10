@@ -39,8 +39,6 @@ class EpisodiosBB extends Component {
       }
 
       static getDerivedStateFromProps(props, state) {
-        console.log("props", props.dataEpisodeId)
-        console.log("funct", state.episodeSelectedId)
         if (props.dataEpisodeId !== state.episodeSelectedId) {
           return {
             episodeSelectedId: props.dataEpisodeId,
