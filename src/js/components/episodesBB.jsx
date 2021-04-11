@@ -16,11 +16,17 @@ const editDate = (date) => {
 
 
 class EpisodiosBB extends Component {
-    state = {
-        episodeSelectedId: 1,
-        episodeSelected: [],
-        chrNameSelected: ''
-      }
+
+      constructor(props){
+        super(props);
+          this.state = {
+            episodeSelectedId: 1,
+            episodeSelectedId: 1,
+            episodeSelected: [],
+            chrNameSelected: '',
+            tempSelected: 0
+          }
+      } 
     
       componentDidMount() {
         const episodeSelectedId = 1;
@@ -53,12 +59,15 @@ class EpisodiosBB extends Component {
         this.setState({ chrNameSelected })
       }
 
-      handleCallback = (childEpidData) =>{
-        console.log("llego la data desde chrrrr", childEpidData)
-      }
+      // CALLBACK FUNCTION SEASON SELECTED
+      handleCallback = (childData) =>{
+        //this.setState({tempSelected: childData})
+        //console.log(childData)
+        this.props.tempCallBack(childData)
+    }
 
       render() {
-        console.log("rendering episode", this.state.episodeSelectedId)
+        console.log("rendering episode")
         return (
           <div className="episodes-container">
                { this.state.episodeSelected.map(episode =>
@@ -106,7 +115,7 @@ class EpisodiosBB extends Component {
               <Switch>
                 <Route path={`/breaking-bad/episodes/character/:chrName`}>
                   <Character dataChrName = {this.state.chrNameSelected} 
-                  parentCallback = {this.state.handleCallback} />
+                  parentCallback = {this.handleCallback} />
                 </Route>
               </Switch>
           </div>

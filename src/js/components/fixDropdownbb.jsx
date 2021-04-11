@@ -4,17 +4,17 @@ import { BrowserRouter as Router, Switch,
     Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 
 
-const EpisodeDropdownBB = (props) => {
+const FixDropdownBB = (props) => {
     const [display, setDisplay] = useState(false);
     let [episodes, setEpisodes] = useState([]);
-    let [temp, setTemp] = useState("");
+    let [temp, setTemp] = useState(0);
     let [episodeId, setEpisodeId] = useState(0);
-    const [search, setSearch] = useState("");
     const wrapperRef = useRef(null);
   
     useEffect(() => {
         setEpisodes(props.dataEpisodeDict)
         setTemp(props.dataTemp)
+        console.log(temp)
     }, []);
   
     useEffect(() => {
@@ -24,13 +24,6 @@ const EpisodeDropdownBB = (props) => {
       };
     });
 
-    // const changeDropdown = () => {
-    //     console.log("es la temp seleccionada")
-    //     if (props.dataTempSelected != 0) {
-    //         console.log("es la temp seleccionada")
-    //     }
-    // }
-  
     const handleClickOutside = event => {
       const { current: wrap } = wrapperRef;
       if (wrap && !wrap.contains(event.target)) {
@@ -48,12 +41,7 @@ const EpisodeDropdownBB = (props) => {
     return (
             <div ref={wrapperRef} className="flex-container flex-column pos-rel">
                 <div className="dropdown-btn">
-                    <button
-                    id="auto"
-                    className="btn btn-info"
-                    onClick={() => setDisplay(!display)}
-                    >Check Out Episodes
-                    </button>
+        
                     {display && (
                     <div className="dd-episode-container">
                         { episodes
@@ -76,4 +64,4 @@ const EpisodeDropdownBB = (props) => {
     );
 };
 
-export default EpisodeDropdownBB;
+export default FixDropdownBB;

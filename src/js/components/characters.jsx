@@ -19,8 +19,7 @@ class Character extends Component {
     state = { 
         chrNameSelected: 'noName',
         chrSelected: [],
-        quoteSelected: [],
-        keepProp: {}
+        quoteSelected: []
      }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -49,20 +48,27 @@ class Character extends Component {
 
     static getDerivedStateFromProps(props, state) {
       var newName = props.dataChrName.replace(" ", "+");
-      console.log(props)
       if (props.dataChrName !== state.chrNameSelected) {
         return {
           chrNameSelected: newName,
-          keepProp: props
         };
       }
       return null;
     }
 
 
-    onTrigger = (event) => {
-      console.log(event)
-  }
+    handleTemp = (e) =>  {
+      var tempSel = ""
+      var seriesSel = ""
+      for (var index = 0; index < e.target.id.length; index++) {
+        if (e.target.id[index] == "-") {
+          tempSel = e.target.id.slice(0, index)
+          seriesSel = e.target.id.slice(index+1, e.target.id.length)
+        }
+      }
+      const childTempData = [tempSel, seriesSel]
+      this.props.parentCallback(childTempData);
+    }
 
     render() {
         console.log("rendering character")
@@ -113,7 +119,8 @@ class Character extends Component {
                             <b>Season's appearance Breaking Bad:</b> {chr.appearance.map(season =>
                               <div className="chr-season-p">
                                 <Link to="/breaking-bad"
-                                onClick={this.onTrigger}>
+                                id={season+"-bb"}
+                                onClick={this.handleTemp}>
                                   {season}
                                 </Link>
                               </div>
@@ -138,6 +145,3 @@ class Character extends Component {
 }
  
 export default Character;
-
-
-

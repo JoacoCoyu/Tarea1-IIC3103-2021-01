@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Switch,
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 import EpisodeDropdownBB from './dropdownbb'
 import EpisodiosBB from "./episodesBB"
+import Popup from "reactjs-popup";
+import ShowTemEpisodes from "./showTempEpisodes"
+import FixDropdownBB from "./fixDropdownbb"
 
 
 const countTemp = (episodesArray) => {
@@ -29,12 +32,19 @@ const assignTemp = (nTemps) => {
 
 
 class BreakingBad extends Component {
-  state = {
-    episodesBB: [],
-    nTempBB: 0,
-    tempBB: [],
-    epiData: null
-  }
+
+  constructor(props){
+    super(props);
+      this.state = {
+          data: null,
+          episodesBB: [],
+          nTempBB: 0,
+          tempBB: [],
+          epiData: null,
+          tempSelected: 0,
+          showTempSelected: false
+      }
+  } 
 
   async componentDidMount() {
     await axios.get(`https://tarea-1-breaking-bad.herokuapp.com/api/episodes?series=Breaking+Bad`)
@@ -50,33 +60,58 @@ class BreakingBad extends Component {
     this.setState({ tempBB })
   }
 
+
   handleCallback = (childEpidData) =>{
     this.setState({epiData: childEpidData})
-    console.log("aqui me llego el id", this.state.epiData)
+    this.setState({ showTempSelected: false })
+    //console.log("aqui me llego el id", this.state.epiData)
+  }
+
+  handleCallbackTemp = (childTempData) =>{
+    this.setState({tempSelected: childTempData[0]})
+    this.setState({ showTempSelected: !this.state.showTempSelected })    
   }
 
 
   render() {
     return (
-        <div class="row">
-        { this.state.tempBB.map(temp => 
-        <div class="card w-25">
-          <div class="card-body">
-            <h4 class="card-title">Season {temp}</h4>
+        <div class="episodes-main-container">
+          <div class="row">
+            { this.state.tempBB.map(temp => 
+            <div class="card w-25">
+              <div class="card-body">
+                <h4 class="card-title">Season {temp}</h4>
 
-            <EpisodeDropdownBB dataEpisodeDict = {this.state.episodesBB} dataTemp = {temp} 
-            parentCallback = {this.handleCallback} />
+                <EpisodeDropdownBB dataEpisodeDict = {this.state.episodesBB} 
+                dataTemp = {temp}
+                dataTempSelected = {this.state.tempSelected}
+                parentCallback = {this.handleCallback}
+                />
 
+              </div>
+            </div>
+            
+              )}          
+              <Switch>
+                <Route path={`/breaking-bad/episodes/:episodeId`}>
+                  <EpisodiosBB dataEpisodeId = {this.state.epiData}
+                  tempCallBack = {this.handleCallbackTemp} />
+                </Route>
+              </Switch>
+
+              
+
+            {/* {this.state.showTempSelected && <FixDropdownBB 
+              dataTempSelected={this.state.tempSelected}
+              dataEpisodesDict={this.state.episodesBB}/>} */}
+          
           </div>
+
+          {this.state.showTempSelected && <ShowTemEpisodes 
+              dataTempSelected={this.state.tempSelected}
+              dataEpisodesDict={this.state.episodesBB}/>}
+
         </div>
-        
-          )}          
-          <Switch>
-            <Route path={`/breaking-bad/episodes/:episodeId`}>
-              <EpisodiosBB dataEpisodeId = {this.state.epiData} />
-            </Route>
-          </Switch>
-      </div>
       
     )
   }
