@@ -21,7 +21,6 @@ class EpisodiosBB extends Component {
         super(props);
           this.state = {
             episodeSelectedId: 1,
-            episodeSelectedId: 1,
             episodeSelected: [],
             chrNameSelected: '',
             tempSelected: 0
@@ -61,10 +60,8 @@ class EpisodiosBB extends Component {
 
       // CALLBACK FUNCTION SEASON SELECTED
       handleCallback = (childData) =>{
-        //this.setState({tempSelected: childData})
-        //console.log(childData)
         this.props.tempCallBack(childData)
-    }
+      }
 
       render() {
         console.log("rendering episode")

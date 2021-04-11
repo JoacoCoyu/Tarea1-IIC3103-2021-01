@@ -9,7 +9,6 @@ const EpisodeDropdownBB = (props) => {
     let [episodes, setEpisodes] = useState([]);
     let [temp, setTemp] = useState("");
     let [episodeId, setEpisodeId] = useState(0);
-    const [search, setSearch] = useState("");
     const wrapperRef = useRef(null);
   
     useEffect(() => {
@@ -23,13 +22,6 @@ const EpisodeDropdownBB = (props) => {
         window.removeEventListener("mousedown", handleClickOutside);
       };
     });
-
-    // const changeDropdown = () => {
-    //     console.log("es la temp seleccionada")
-    //     if (props.dataTempSelected != 0) {
-    //         console.log("es la temp seleccionada")
-    //     }
-    // }
   
     const handleClickOutside = event => {
       const { current: wrap } = wrapperRef;

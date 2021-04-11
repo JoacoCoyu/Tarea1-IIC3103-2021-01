@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch,
 import axios from 'axios';
 
 
-class ShowTemEpisodes extends Component {
+class ShowTemEpisodesBB extends Component {
 
     constructor(props){
         super(props);
@@ -42,16 +42,16 @@ class ShowTemEpisodes extends Component {
         return ( 
                 <div className="episode-main-dl-container">
                     <div class="episodes-dl-title">
-                        <h5>This are the episodes of the season that was selected</h5>
+                        <h5>This are the episodes of season {this.state.tempSelected[0]} of Breaking Bad</h5>
                     </div>
                     <div class="row row-cols-2 row-cols-lg-5 g-lg-2 justify-content-center">
                             { this.state.episodesBB
                             .filter(episode => episode.season == this.state.tempSelected[0]).map(filEpi => (
                                 <div class="col-episode-dl">
-                                    <Link id={filEpi.episode_id}
+                                    <p id={filEpi.episode_id}
                                     className="text-dark">
                                         {filEpi.episode}) {filEpi.title}
-                                    </Link>
+                                    </p>
                                 </div>
                             ))}
                     </div>
@@ -61,4 +61,4 @@ class ShowTemEpisodes extends Component {
     }
 }
  
-export default ShowTemEpisodes;
+export default ShowTemEpisodesBB;

@@ -15,11 +15,16 @@ const editDate = (date) => {
 
 
 class EpisodiosBCS extends Component {
-    state = {
-        episodeSelectedId: 1,
-        episodeSelected: [],
-        chrNameSelected: ''
-      }
+
+      constructor(props){
+        super(props);
+          this.state = {
+            episodeSelectedId: 1,
+            episodeSelected: [],
+            chrNameSelected: '',
+            tempSelected: 0
+          }
+      } 
     
       componentDidMount() {
         const episodeSelectedId = 1;
@@ -50,8 +55,13 @@ class EpisodiosBCS extends Component {
       handleChrName = (e) => {
         const chrNameSelected = e.target.id
         this.setState({ chrNameSelected })
-        //console.log(this.state.chrNameSelected)
       }
+
+      handleCallback = (childData) =>{
+        this.props.tempCallBack(childData)
+      }
+
+
 
       render() {
         console.log("rendering episode", this.state.episodeSelectedId)
@@ -101,7 +111,8 @@ class EpisodiosBCS extends Component {
 
               <Switch>
                 <Route path={`/better-call-saul/episodes/character/:chrName`}>
-                  <Character dataChrName = {this.state.chrNameSelected} />
+                  <Character dataChrName = {this.state.chrNameSelected}
+                   parentCallback = {this.handleCallback} />
                 </Route>
               </Switch>
           </div>

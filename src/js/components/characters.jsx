@@ -57,7 +57,20 @@ class Character extends Component {
     }
 
 
-    handleTemp = (e) =>  {
+    handleTempBB = (e) =>  {
+      var tempSel = ""
+      var seriesSel = ""
+      for (var index = 0; index < e.target.id.length; index++) {
+        if (e.target.id[index] == "-") {
+          tempSel = e.target.id.slice(0, index)
+          seriesSel = e.target.id.slice(index+1, e.target.id.length)
+        }
+      }
+      const childTempData = [tempSel, seriesSel]
+      this.props.parentCallback(childTempData);
+    }
+
+    handleTempBCS = (e) =>  {
       var tempSel = ""
       var seriesSel = ""
       for (var index = 0; index < e.target.id.length; index++) {
@@ -120,7 +133,7 @@ class Character extends Component {
                               <div className="chr-season-p">
                                 <Link to="/breaking-bad"
                                 id={season+"-bb"}
-                                onClick={this.handleTemp}>
+                                onClick={this.handleTempBB}>
                                   {season}
                                 </Link>
                               </div>
@@ -128,7 +141,9 @@ class Character extends Component {
                               <br />
                             <b>Season's appearance Better Call Saul:</b> {chr.better_call_saul_appearance.map(season =>
                               <div className="chr-season-p">
-                                <Link to="/better-call-saul">
+                                <Link to="/better-call-saul"
+                                id={season+"-bcs"}
+                                onClick={this.handleTempBCS}>
                                   {season}
                                 </Link>
                               </div>

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch,
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 import EpisodeDropdownBCS from './dropdownbcs'
 import EpisodiosBCS from "./episodesBCS"
+import ShowTemEpisodesBCS from "./showTempEpisodesBCS"
 
 
 const countTemp = (episodesArray) => {
@@ -17,7 +18,6 @@ const countTemp = (episodesArray) => {
   return maxTemp;
 }
 
-
 const assignTemp = (nTemps) => {
   var t_index;
   var tempArray = [];
@@ -29,52 +29,70 @@ const assignTemp = (nTemps) => {
 
 
 class BetterCallSaul extends Component {
-  state = {
-    episodesBB: [],
-    nTempBB: 0,
-    tempBB: [],
-    epiData: null
+
+  constructor(props){
+    super(props);
+      this.state = {
+          episodesBCS: [],
+          nTempBCS: 0,
+          tempBCS: [],
+          epiData: null,
+          tempSelected: 0,
+          showTempSelected: false
+      }
   }
 
   async componentDidMount() {
     await axios.get(`https://tarea-1-breaking-bad.herokuapp.com/api/episodes?series=Better+Call+Saul`)
       .then(res => {
-        const episodesBB = res.data;
-        this.setState({ episodesBB });
+        const episodesBCS = res.data;
+        this.setState({ episodesBCS });
       })
 
-    const nTempBB = countTemp(this.state.episodesBB)
-    this.setState({ nTempBB })
+    const nTempBCS = countTemp(this.state.episodesBCS)
+    this.setState({ nTempBCS })
 
-    const tempBB = assignTemp(this.state.nTempBB)
-    this.setState({ tempBB })
+    const tempBCS = assignTemp(this.state.nTempBCS)
+    this.setState({ tempBCS })
   }
 
   handleCallback = (childEpidData) =>{
     this.setState({epiData: childEpidData})
+    this.setState({ showTempSelected: false })
+  }
+
+  handleCallbackTemp = (childTempData) =>{
+    this.setState({tempSelected: childTempData[0]})
+    this.setState({ showTempSelected: !this.state.showTempSelected })    
   }
 
 
   render() {
     return (
-        <div class="row">
-        { this.state.tempBB.map(temp => 
-        <div class="card w-25">
-          <div class="card-body">
-            <h4 class="card-title">Season {temp}</h4>
+      <div class="episodes-main-container">
+          <div class="row">
+          { this.state.tempBCS.map(temp => 
+          <div class="card w-25">
+            <div class="card-body">
+              <h4 class="card-title">Season {temp}</h4>
 
-            <EpisodeDropdownBCS dataEpisodeDict = {this.state.episodesBB} dataTemp = {temp} 
-            parentCallback = {this.handleCallback} />
+              <EpisodeDropdownBCS dataEpisodeDict = {this.state.episodesBCS} dataTemp = {temp} 
+              parentCallback = {this.handleCallback} />
 
+            </div>
           </div>
+          
+            )}          
+            <Switch>
+              <Route path={`/better-call-saul/episodes/:episodeId`}>
+                <EpisodiosBCS dataEpisodeId = {this.state.epiData}
+                tempCallBack = {this.handleCallbackTemp}  />
+              </Route>
+            </Switch>
         </div>
-        
-          )}          
-          <Switch>
-            <Route path={`/better-call-saul/episodes/:episodeId`}>
-              <EpisodiosBCS dataEpisodeId = {this.state.epiData} />
-            </Route>
-          </Switch>
+        {this.state.showTempSelected && <ShowTemEpisodesBCS 
+              dataTempSelected={this.state.tempSelected}
+              dataEpisodesDict={this.state.episodesBCS}/>}
       </div>
       
     )

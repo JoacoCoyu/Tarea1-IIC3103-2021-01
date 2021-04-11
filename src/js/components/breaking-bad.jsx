@@ -5,9 +5,7 @@ import { BrowserRouter as Router, Switch,
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 import EpisodeDropdownBB from './dropdownbb'
 import EpisodiosBB from "./episodesBB"
-import Popup from "reactjs-popup";
-import ShowTemEpisodes from "./showTempEpisodes"
-import FixDropdownBB from "./fixDropdownbb"
+import ShowTemEpisodesBB from "./showTempEpisodesBB"
 
 
 const countTemp = (episodesArray) => {
@@ -19,7 +17,6 @@ const countTemp = (episodesArray) => {
   });
   return maxTemp;
 }
-
 
 const assignTemp = (nTemps) => {
   var t_index;
@@ -36,7 +33,6 @@ class BreakingBad extends Component {
   constructor(props){
     super(props);
       this.state = {
-          data: null,
           episodesBB: [],
           nTempBB: 0,
           tempBB: [],
@@ -68,8 +64,8 @@ class BreakingBad extends Component {
   }
 
   handleCallbackTemp = (childTempData) =>{
-    this.setState({tempSelected: childTempData[0]})
-    this.setState({ showTempSelected: !this.state.showTempSelected })    
+    this.setState({ tempSelected: childTempData[0] })
+    this.setState({ showTempSelected: !this.state.showTempSelected })
   }
 
 
@@ -84,7 +80,6 @@ class BreakingBad extends Component {
 
                 <EpisodeDropdownBB dataEpisodeDict = {this.state.episodesBB} 
                 dataTemp = {temp}
-                dataTempSelected = {this.state.tempSelected}
                 parentCallback = {this.handleCallback}
                 />
 
@@ -98,16 +93,10 @@ class BreakingBad extends Component {
                   tempCallBack = {this.handleCallbackTemp} />
                 </Route>
               </Switch>
-
-              
-
-            {/* {this.state.showTempSelected && <FixDropdownBB 
-              dataTempSelected={this.state.tempSelected}
-              dataEpisodesDict={this.state.episodesBB}/>} */}
           
           </div>
 
-          {this.state.showTempSelected && <ShowTemEpisodes 
+          {this.state.showTempSelected && <ShowTemEpisodesBB 
               dataTempSelected={this.state.tempSelected}
               dataEpisodesDict={this.state.episodesBB}/>}
 

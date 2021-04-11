@@ -130,6 +130,7 @@
   margin-right: 0.7%;
   border-radius: 3px;
   transition: 0.3s ease;
+  text-align: center;
 }
 
 .col-episode-dl:hover {
