@@ -84,9 +84,7 @@ class Character extends Component {
                                 </div>
                             </Popup>
 
-                            
                           </div>
-
                           <p className="chr-text-p text-white">
                             <b>Nickname:</b> {chr.nickname}
                             <br />

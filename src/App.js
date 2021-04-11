@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, useParams, useRouteMatch } from
 import Home from './js/components/home';
 import NavBar from './js/components/navbar';
 import BreakingBad from './js/components/breaking-bad';
+import BetterCallSaul from './js/components/better-call-saul';
 
 
 const App = () => {
@@ -20,6 +21,10 @@ const App = () => {
         
         <Route path="/breaking-bad">
           <BreakingBad />
+        </Route>
+
+        <Route path="/better-call-saul">
+          <BetterCallSaul />
         </Route>
       
       </Switch>
