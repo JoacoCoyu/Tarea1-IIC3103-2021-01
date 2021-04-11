@@ -3,7 +3,8 @@ import axios from 'axios';
 import '../../style/App.css';
 import { BrowserRouter as Router, Switch, 
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
-import EpisodiosBB from './episodiosBB';
+import EpisodeDropdownBB from './dropdownbb'
+import EpisodiosBB from "./episodesBB"
 
 
 const countTemp = (episodesArray) => {
@@ -32,7 +33,7 @@ class BreakingBad extends Component {
     episodesBB: [],
     nTempBB: 0,
     tempBB: [],
-    episodeSelectedId: 0
+    epiData: null
   }
 
   async componentDidMount() {
@@ -49,6 +50,11 @@ class BreakingBad extends Component {
     this.setState({ tempBB })
   }
 
+  handleCallback = (childEpidData) =>{
+    this.setState({epiData: childEpidData})
+    console.log("aqui me llego el id", this.state.epiData)
+  }
+
 
   render() {
     return (
@@ -57,25 +63,9 @@ class BreakingBad extends Component {
         <div class="card w-25">
           <div class="card-body">
             <h4 class="card-title">Season {temp}</h4>
-            <div class="dropdown">
-              <a type="button" class="btn btn-info ">
-                Check Out Episodes
-              </a>
-              <div class="dropdown-content">
-                <ul>
-                  { this.state.episodesBB.filter(episode => episode.season == temp).map(filEpi => (
-                    <li >
-                      <Link id={filEpi.episode_id} className="nav-link" 
-                      to={`/breaking-bad/episodes/${filEpi.episode_id}`}
-                       onClick={(e) => this.setState({ episodeSelectedId: e.target.id }) }>
-                        {filEpi.title} #{filEpi.episode}
-                      </Link>
-                    </li>
-                  ))}
-                  
-                </ul>
-              </div>
-            </div>
+
+            <EpisodeDropdownBB dataEpisodeDict = {this.state.episodesBB} dataTemp = {temp} 
+            parentCallback = {this.handleCallback} />
 
           </div>
         </div>
@@ -83,7 +73,7 @@ class BreakingBad extends Component {
           )}          
           <Switch>
             <Route path={`/breaking-bad/episodes/:episodeId`}>
-              <EpisodiosBB dataEpisodeId = {this.state.episodeSelectedId} />
+              <EpisodiosBB dataEpisodeId = {this.state.epiData} />
             </Route>
           </Switch>
       </div>
@@ -93,30 +83,3 @@ class BreakingBad extends Component {
 }
 
 export default BreakingBad;
-
-              // episode => {episode.season == temp}
-              // <ul>
-              //     { this.state.episodesBB.map(episode => <li>{episode.title}</li>)}
-              // </ul>
-              // <div className="col-sm-4">
-
-              //   this.state.tempBB.map(temp => 
-              //     <div className="card"> 
-              //     <div className="card-body">
-              //       <h5 class="card-title">{temp}
-              //       </h5>
-
-              //       <div className="btn-group dropend">
-              //         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              //           Dropdown button
-              //         </button>
-              //         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              //           <li><a className="dropdown-item" href="#">Action</a></li>
-              //           <li><a className="dropdown-item" href="#">Another action</a></li>
-              //           <li><a className="dropdown-item" href="#">Something else here</a></li>
-              //         </ul>
-              //       </div>
-
-              //     </div>
-              //   </div>)}
-              // </div> 

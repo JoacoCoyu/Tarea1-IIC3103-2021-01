@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import '../../style/App.css';
 import bbPicture from "../../img/bb.jpg";
 import bcsPicture from "../../img/bcs.jpg";
+import { BrowserRouter as Router, Link, Switch, Route, useParams, useRouteMatch } from "react-router-dom";
+
 
 
 
@@ -22,10 +24,12 @@ class Home extends Component {
                     <div class="bb-main-pic">
                         <img src={bbPicture} alt="Breaking Bad picture" className="bb-picture" />
                     </div>
-
+                    
+                   
                     <div className="bcs-main-pic">
                         <img src={bcsPicture} alt="Breaking Bad picture" className="bcs-picture" />
                     </div>
+               
                 </div>
             </div>
          );

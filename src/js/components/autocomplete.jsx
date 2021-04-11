@@ -31,8 +31,9 @@ const Auto = () => {
         // setOptions(pokemon);
         // console.log(pokemon)
 
-        axios.get(`https://tarea-1-breaking-bad.herokuapp.com/api/characters`)
+        axios.get(`https://tarea-1-breaking-bad.herokuapp.com/api/characters?limit=20&offset=0`)
             .then( response => setChr(response.data) )
+            console.log(chr)
     }, []);
   
     useEffect(() => {
@@ -76,7 +77,7 @@ const Auto = () => {
                     key={i}
                     tabIndex="0"
                   >
-                    <Link to={`/breaking-bad/character/${value.name}`}>
+                    <Link to={`/character/${value.name}`}>
                         {value.name}
                     </Link>
                   </div>
@@ -86,7 +87,7 @@ const Auto = () => {
         )}
         <div className="search-chr">
           <Switch>
-            <Route path={`/breaking-bad/character/:chrName`}>
+            <Route path={`/character/:chrName`}>
                 <Character dataChrName = {search} />
             </Route>
           </Switch>

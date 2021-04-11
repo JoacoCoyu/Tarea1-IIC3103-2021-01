@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Popup from "reactjs-popup";
+import { BrowserRouter as Router, Switch, 
+  Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 
 
 const addComas = (array) => {
@@ -17,7 +19,8 @@ class Character extends Component {
     state = { 
         chrNameSelected: 'noName',
         chrSelected: [],
-        quoteSelected: []
+        quoteSelected: [],
+        keepProp: {}
      }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -32,7 +35,6 @@ class Character extends Component {
               res.data.better_call_saul_appearance = addComas(res.data[0].better_call_saul_appearance)
               const chrSelected = res.data;
               this.setState({ chrSelected });
-              console.log(this.state.chrNameSelected)
             })
 
           const Apirequest1 = "https://tarea-1-breaking-bad.herokuapp.com/api/quote?author="+this.state.chrNameSelected
@@ -47,15 +49,23 @@ class Character extends Component {
 
     static getDerivedStateFromProps(props, state) {
       var newName = props.dataChrName.replace(" ", "+");
+      console.log(props)
       if (props.dataChrName !== state.chrNameSelected) {
         return {
           chrNameSelected: newName,
+          keepProp: props
         };
       }
       return null;
     }
 
-    render() { 
+
+    onTrigger = (event) => {
+      console.log(event)
+  }
+
+    render() {
+        console.log("rendering character")
         return ( 
                 <div className="chr-container">
                   { this.state.chrSelected.map(chr => 
@@ -102,13 +112,18 @@ class Character extends Component {
                             <br />
                             <b>Season's appearance Breaking Bad:</b> {chr.appearance.map(season =>
                               <div className="chr-season-p">
-                                <a>{season}</a>
+                                <Link to="/breaking-bad"
+                                onClick={this.onTrigger}>
+                                  {season}
+                                </Link>
                               </div>
                               )}
                               <br />
                             <b>Season's appearance Better Call Saul:</b> {chr.better_call_saul_appearance.map(season =>
                               <div className="chr-season-p">
-                                <a>{season}</a>
+                                <Link to="/better-call-saul">
+                                  {season}
+                                </Link>
                               </div>
                               )}
                             <br />

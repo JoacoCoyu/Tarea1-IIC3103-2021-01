@@ -58,6 +58,7 @@
 
 .bb-main-pic {
   width: 20%;
+  transition: 0.3s ease;
 }
 
 .bcs-main-pic {
@@ -65,6 +66,17 @@
   top: 0%;
   left: 23%;
   width: 20%;
+  transition: 0.3s ease;
+}
+
+.bb-main-pic:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(1.04);
+}
+
+.bcs-main-pic:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(1.04);
 }
 
 .bb-picture {

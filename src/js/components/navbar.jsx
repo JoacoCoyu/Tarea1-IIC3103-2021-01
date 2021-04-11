@@ -24,7 +24,6 @@ class NavBar extends Component {
         }
     }
 
-    
     handleSearchValue = (e) => {
         this.setState({ searchValue: e.target.value })
     }
@@ -36,7 +35,7 @@ class NavBar extends Component {
 
     render() { 
         return ( 
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
                     <span className="navbar-brand mb-0 h1">T1 Series App</span>
                     
@@ -54,16 +53,6 @@ class NavBar extends Component {
                                 <Link className="nav-link" to="/better-call-saul">Better Call Saul</Link>
                             </li>
                         </ul>
-
-                        {/* <label for="exampleDataList" class="form-label">Datalist example</label>
-                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." />
-                        <datalist id="datalistOptions">
-                            <option value="San Francisco"/>
-                            <option value="New York"/>
-                            <option value="Seattle"/>
-                            <option value="Los Angeles"/>
-                            <option value="Chicago"/>
-                        </datalist> */}
                      
                         <Auto />
                     </div>

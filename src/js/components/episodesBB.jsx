@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import '../../style/App.css';
 import { BrowserRouter as Router, Switch, 
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 import Character from './characters';
@@ -50,7 +51,10 @@ class EpisodiosBB extends Component {
       handleChrName = (e) => {
         const chrNameSelected = e.target.id
         this.setState({ chrNameSelected })
-        //console.log(this.state.chrNameSelected)
+      }
+
+      handleCallback = (childEpidData) =>{
+        console.log("llego la data desde chrrrr", childEpidData)
       }
 
       render() {
@@ -101,7 +105,8 @@ class EpisodiosBB extends Component {
 
               <Switch>
                 <Route path={`/breaking-bad/episodes/character/:chrName`}>
-                  <Character dataChrName = {this.state.chrNameSelected} />
+                  <Character dataChrName = {this.state.chrNameSelected} 
+                  parentCallback = {this.state.handleCallback} />
                 </Route>
               </Switch>
           </div>

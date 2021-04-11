@@ -3,7 +3,8 @@ import axios from 'axios';
 import '../../style/App.css';
 import { BrowserRouter as Router, Switch, 
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
-import EpisodiosBCS from './episodesBCS';
+import EpisodeDropdownBCS from './dropdownbcs'
+import EpisodiosBCS from "./episodesBCS"
 
 
 const countTemp = (episodesArray) => {
@@ -29,53 +30,41 @@ const assignTemp = (nTemps) => {
 
 class BetterCallSaul extends Component {
   state = {
-    episodesBCS: [],
-    nTempBCS: 0,
-    tempBCS: [],
-    episodeSelectedId: 0
+    episodesBB: [],
+    nTempBB: 0,
+    tempBB: [],
+    epiData: null
   }
 
   async componentDidMount() {
     await axios.get(`https://tarea-1-breaking-bad.herokuapp.com/api/episodes?series=Better+Call+Saul`)
       .then(res => {
-        const episodesBCS = res.data;
-        this.setState({ episodesBCS });
+        const episodesBB = res.data;
+        this.setState({ episodesBB });
       })
 
-    const nTempBCS = countTemp(this.state.episodesBCS)
-    this.setState({ nTempBCS })
+    const nTempBB = countTemp(this.state.episodesBB)
+    this.setState({ nTempBB })
 
-    const tempBCS = assignTemp(this.state.nTempBCS)
-    this.setState({ tempBCS })
+    const tempBB = assignTemp(this.state.nTempBB)
+    this.setState({ tempBB })
+  }
+
+  handleCallback = (childEpidData) =>{
+    this.setState({epiData: childEpidData})
   }
 
 
   render() {
     return (
         <div class="row">
-        { this.state.tempBCS.map(temp => 
+        { this.state.tempBB.map(temp => 
         <div class="card w-25">
           <div class="card-body">
             <h4 class="card-title">Season {temp}</h4>
-            <div class="dropdown">
-              <a type="button" class="btn btn-info ">
-                Check Out Episodes
-              </a>
-              <div class="dropdown-content">
-                <ul>
-                  { this.state.episodesBCS.filter(episode => episode.season == temp).map(filEpi => (
-                    <li >
-                      <Link id={filEpi.episode_id} className="nav-link" 
-                      to={`/better-call-saul/episodes/${filEpi.episode_id}`}
-                       onClick={(e) => this.setState({ episodeSelectedId: e.target.id }) }>
-                        {filEpi.title} #{filEpi.episode}
-                      </Link>
-                    </li>
-                  ))}
-                  
-                </ul>
-              </div>
-            </div>
+
+            <EpisodeDropdownBCS dataEpisodeDict = {this.state.episodesBB} dataTemp = {temp} 
+            parentCallback = {this.handleCallback} />
 
           </div>
         </div>
@@ -83,7 +72,7 @@ class BetterCallSaul extends Component {
           )}          
           <Switch>
             <Route path={`/better-call-saul/episodes/:episodeId`}>
-              <EpisodiosBCS dataEpisodeId = {this.state.episodeSelectedId} />
+              <EpisodiosBCS dataEpisodeId = {this.state.epiData} />
             </Route>
           </Switch>
       </div>
