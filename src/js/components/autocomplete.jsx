@@ -15,21 +15,6 @@ const Auto = (props) => {
     let [chosenChr, setChosen] = useState("");
   
     useEffect(() => {
-      const pokemon = [];
-      const promises = new Array(20)
-        // .fill()
-        // .map((v, i) => fetch(`https://pokeapi.co/api/v2/pokemon-form/${i + 1}`));
-        // Promise.all(promises).then(pokemonArr => {
-        //     return pokemonArr.map(value =>
-        //     value
-        //         .json()
-        //         .then(({ name, sprites: { front_default: sprite } }) =>
-        //         pokemon.push({ name, sprite })
-        //         )
-        //     );
-        // });
-        // setOptions(pokemon);
-        // console.log(pokemon)
 
         axios.get(`https://tarea-1-breaking-bad.herokuapp.com/api/characters?limit=20&offset=0`)
             .then( response => setChr(response.data) )

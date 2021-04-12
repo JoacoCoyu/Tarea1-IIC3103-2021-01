@@ -27,7 +27,6 @@ class ChrView extends Component {
       }
 
     async componentDidUpdate(prevProps, prevState) {
-        console.log("hola", this.state.chrNameSelected)
         if (prevState.chrNameSelected != this.state.chrNameSelected) {
             const Apirequest = "https://tarea-1-breaking-bad.herokuapp.com/api/characters?name="+this.state.chrNameSelected
             await axios.get(Apirequest)
@@ -36,7 +35,6 @@ class ChrView extends Component {
                 res.data.appearance = addComas(res.data[0].appearance)
                 res.data.better_call_saul_appearance = addComas(res.data[0].better_call_saul_appearance)
                 this.setState({ chrSelected: res.data });
-                console.log(this.state.chrSelected)
               })
 
             const Apirequest1 = "https://tarea-1-breaking-bad.herokuapp.com/api/quote?author="+this.state.chrNameSelected
@@ -109,19 +107,17 @@ class ChrView extends Component {
                             <br />
                             <b>Season's appearance Breaking Bad:</b> {chr.appearance.map(season =>
                             <div className="chr-season-p">
-                                <Link to="/breaking-bad"
-                                id={season+"-bb"}>
+                                <a>
                                 {season}
-                                </Link>
+                                </a>
                             </div>
                             )}
                             <br />
                             <b>Season's appearance Better Call Saul:</b> {chr.better_call_saul_appearance.map(season =>
                             <div className="chr-season-p">
-                                <Link to="/better-call-saul"
-                                id={season+"-bcs"}>
+                                <a>
                                 {season}
-                                </Link>
+                                </a>
                             </div>
                             )}
                             <br />
