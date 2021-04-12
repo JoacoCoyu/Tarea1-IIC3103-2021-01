@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch,
 import Character from './characters';
 
 
-const Auto = () => {
+const Auto = (props) => {
     const [display, setDisplay] = useState(false);
     const [options, setOptions] = useState([]);
     let [chr, setChr] = useState([]);
@@ -54,6 +54,11 @@ const Auto = () => {
       setSearch(poke);
       setDisplay(false);
     };
+
+    const getSearchName = name => {
+      props.searchNameCallback(name);
+
+    }
   
     return (
       <div ref={wrapperRef} className="flex-container flex-column pos-rel">
@@ -77,7 +82,9 @@ const Auto = () => {
                     key={i}
                     tabIndex="0"
                   >
-                    <Link to={`/character/${value.name}`}>
+                    <Link 
+                    to="/character-search"
+                    onClick={() => getSearchName(value.name)}>
                         {value.name}
                     </Link>
                   </div>
@@ -85,13 +92,13 @@ const Auto = () => {
               })}
           </div>
         )}
-        <div className="search-chr">
+        {/* <div className="search-chr">
           <Switch>
             <Route path={`/character/:chrName`}>
                 <Character dataChrName = {search} />
             </Route>
           </Switch>
-        </div>
+        </div> */}
 
       </div>
     );

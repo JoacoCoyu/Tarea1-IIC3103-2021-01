@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Popup from "reactjs-popup";
+import '../../style/App.css';
 import { BrowserRouter as Router, Switch, 
   Route, Link, useParams, useRouteMatch, withRouter } from "react-router-dom";
 
@@ -16,6 +17,7 @@ const addComas = (array) => {
 }
 
 class Character extends Component {
+
     state = { 
         chrNameSelected: 'noName',
         chrSelected: [],

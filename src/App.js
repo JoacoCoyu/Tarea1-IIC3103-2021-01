@@ -1,37 +1,58 @@
-import React from 'react';
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, useParams, useRouteMatch } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './js/components/home';
 import NavBar from './js/components/navbar';
 import BreakingBad from './js/components/breaking-bad';
 import BetterCallSaul from './js/components/better-call-saul';
+import ChrView from "./js/components/chr-view";
 
 
-const App = () => {
-  return (
-    <Router>
-    <div>
+class App extends Component {
 
-      <NavBar />
+  constructor(props){
+    super(props);
+      this.state = {
+        searchName: "no name"
+      }
+  } 
 
-      <Switch>
-        
-        <Route exact path="/">
-          <Home />
-        </Route>
-        
-        <Route path="/breaking-bad">
-          <BreakingBad />
-        </Route>
+  handleSearchName = (childData) =>{
+    this.setState({ searchName: childData })
+  }
 
-        <Route path="/better-call-saul">
-          <BetterCallSaul />
-        </Route>
-      
-      </Switch>
+  render() {
+      return (
+            <Router>
+            <div>
 
-    </div>
-  </Router>
-  );
+              <NavBar searchNameCallback={this.handleSearchName}
+              searchName={this.state.searchName} />
+
+              <Switch>
+                
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                
+                <Route path="/breaking-bad">
+                  <BreakingBad />
+                </Route>
+
+                <Route path="/better-call-saul">
+                  <BetterCallSaul />
+                </Route>
+
+                <Route path="/character-search">
+                  <ChrView searchNameValue={this.state.searchName} />
+                </Route>
+              
+              </Switch>
+
+            </div>
+          </Router>
+      );
+  }
 }
 
 export default App;

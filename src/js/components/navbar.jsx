@@ -7,12 +7,14 @@ import Auto from "./autocomplete"
 
 class NavBar extends Component {
 
-    state = {
-        searchValue: "pre Value",
-        searchChr: [],
-        inputRef: React.createRef()
-        
-      }
+    constructor(props){
+    super(props);
+        this.state = {
+            searchValue: "pre Value",
+            searchChr: [],
+            inputRef: React.createRef()
+        }
+    }
     
     async componentDidUpdate(prevProps, prevState) {
         if (prevState.searchValue != this.state.searchValue) {
@@ -31,6 +33,10 @@ class NavBar extends Component {
     printValue = () => {
         console.log(this.state.searchValue)
         console.log(this.state.searchChr)
+    }
+
+    handleSearchName = (childData) => {
+        this.props.searchNameCallback(childData)
     }
 
     render() { 
@@ -54,7 +60,9 @@ class NavBar extends Component {
                             </li>
                         </ul>
                      
-                        <Auto />
+                        <Auto 
+                        searchNameCallback={this.handleSearchName} />
+                    
                     </div>
                 </div>
             </nav>

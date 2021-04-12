@@ -210,6 +210,18 @@
   font-size: 18px;
 }
 
+.s-chr-container {
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  height: 50px;
+  width: 40%;
+}
+
+.s-chr-info-container {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
 /* QUOTE */
 
 .quote-container {
@@ -223,3 +235,8 @@
 }
 
 /* SEARCH */
+
+.search-chr {
+  width: 500px;
+  height: 500px;
+}
