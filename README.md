@@ -6,18 +6,20 @@ La siguiente tarea se realizó con la librería React JS con el fin de facilitar
 
 ## Arquitectura de archivos
 
+```
 Tarea1-IIC3103-2021-01
 └───📑README.md
 └───📂.vscode
 └───📂public
 └───📂src
-└───📂img
-└───📂style
-│ └───🎨App.css
-│ └───🎨index.css
-│ └───🎨autocomplete.css
-└───📂js
-└───📂components
+    └───📂img
+    └───📂style
+    │ └───🎨App.css
+    │ └───🎨index.css
+    │ └───🎨autocomplete.css
+    └───📂js
+        └───📂components (💻 todos los archivos .jsx)
+```
 
 ## Funcionalidades implementadas
 
