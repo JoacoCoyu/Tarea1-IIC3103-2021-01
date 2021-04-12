@@ -7,12 +7,17 @@ La siguiente tarea se realizó con la librería React JS con el fin de facilitar
 ## Arquitectura de archivos
 
 Tarea1-IIC3103-2021-01
-│ 📑README.md
-│ 🌎index.html
-│ 💻index.js  
-│
-└───📂documents
-│ │ 📄E1.pdf
+└───📑README.md
+└───📂.vscode
+└───📂public
+└───📂src
+└───📂img
+└───📂style
+│ └───🎨App.css
+│ └───🎨index.css
+│ └───🎨autocomplete.css
+└───📂js
+└───📂components
 
 ## Funcionalidades implementadas
 
