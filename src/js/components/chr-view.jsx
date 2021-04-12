@@ -105,6 +105,8 @@ class ChrView extends Component {
                             <br />
                             <b>Status:</b> {chr.status}
                             <br />
+                            <b>Portrayed:</b> {chr.portrayed}
+                            <br />
                             <b>Season's appearance Breaking Bad:</b> {chr.appearance.map(season =>
                             <div className="chr-season-p">
                                 <a>
@@ -121,7 +123,12 @@ class ChrView extends Component {
                             </div>
                             )}
                             <br />
-                            <b>Portrayed:</b> {chr.portrayed}
+                            <b>Categories of the character: </b>
+                              <div className="chr-season-p">
+                                <a>
+                                  {chr.category}
+                                </a>
+                              </div>
                         </p>
                         </div>
                     </div>

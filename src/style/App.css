@@ -41,19 +41,18 @@
 
 .home-container {
   display: grid;
-  grid-template-columns: 10% 80% 10%;
+  grid-template-columns: 15% 70% 15%;
 }
 
 .home-img {
   position: absolute;
   display: flex;
-  top: 37%;
+  top: 53%;
   left: 15%;
 }
 
 .home-text {
   grid-column: 2/3;
-  text-align: center;
 }
 
 .bb-main-pic {

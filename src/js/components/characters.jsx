@@ -131,6 +131,8 @@ class Character extends Component {
                             <br />
                             <b>Status:</b> {chr.status}
                             <br />
+                            <b>Portrayed:</b> {chr.portrayed}
+                            <br />
                             <b>Season's appearance Breaking Bad:</b> {chr.appearance.map(season =>
                               <div className="chr-season-p">
                                 <Link to="/breaking-bad"
@@ -140,7 +142,7 @@ class Character extends Component {
                                 </Link>
                               </div>
                               )}
-                              <br />
+                            <br />
                             <b>Season's appearance Better Call Saul:</b> {chr.better_call_saul_appearance.map(season =>
                               <div className="chr-season-p">
                                 <Link to="/better-call-saul"
@@ -150,8 +152,13 @@ class Character extends Component {
                                 </Link>
                               </div>
                               )}
-                            <br />
-                            <b>Portrayed:</b> {chr.portrayed}
+                              <br />
+                            <b>Categories of the character: </b>
+                              <div className="chr-season-p">
+                                <a>
+                                  {chr.category}
+                                </a>
+                              </div>
                           </p>
                       </div>
                       </div>
